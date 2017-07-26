@@ -24,9 +24,7 @@ export class BulletComponent implements OnInit, OnChanges, AfterViewInit {
     showTarget: boolean = false;
     showRange: boolean = false;
 
-    range_col: any = '';
-    target_col: any = '';
-    actual_col: any = '';
+    color_array: any[] = ['lightgrey', 'slateblue', 'blueviolet'];
 
     range_opacity: any[] = [];
     actual_opacity: any[] = [];
@@ -60,6 +58,7 @@ export class BulletComponent implements OnInit, OnChanges, AfterViewInit {
     }
 
     processData() {
+        this.setColors();
         this.calculateHeights();
         let act_max: number = Number.MIN_VALUE;
         let range_max: number = Number.MIN_VALUE;
@@ -87,7 +86,7 @@ export class BulletComponent implements OnInit, OnChanges, AfterViewInit {
             this.actual.forEach((item) => {
                 this.calc_actual.push((item / max) * 100)
             });
-            this.calc_actual.sort((a, b)=>{return a-b});
+            this.calc_actual.sort((a, b) => { return a - b });
             this.addActualOpacity();
         }
 
@@ -95,7 +94,7 @@ export class BulletComponent implements OnInit, OnChanges, AfterViewInit {
             this.ranges.forEach((item) => {
                 this.calc_ranges.push((item / max) * 100)
             });
-            this.calc_ranges.sort((a, b)=>{return a-b});
+            this.calc_ranges.sort((a, b) => { return a - b });
             this.addRangeOpacity();
             this.showRange = true;
         }
@@ -127,6 +126,12 @@ export class BulletComponent implements OnInit, OnChanges, AfterViewInit {
         }
         this.actual_height = this.calc_height / 2;
         this.actual_top = this.actual_height / 2;
+    }
+
+    setColors() {
+        if (this.colors && this.colors.length === 3) {
+            this.color_array = this.colors;
+        }
     }
 
 }

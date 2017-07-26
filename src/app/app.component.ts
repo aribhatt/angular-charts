@@ -10,5 +10,6 @@ export class AppComponent {
   ranges: number[] = [250, 230, 210, 190];
   actual: number[] = [200];
   target: number[] = [193];
+  colors: any[] = ['lightgrey', 'orange', 'green'];
   height: number = 40;
 }

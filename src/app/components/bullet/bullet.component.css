@@ -5,18 +5,15 @@
 
 .ranges {
     position: absolute;
-    background-color: lightgrey;
     top: 0;
 }
 
 .actual {
     position: absolute;
-    background-color: slateblue;
 }
 
 .target {
     position: absolute;
-    background-color: blueviolet;
     width: 3px;
     top: 0;
     bottom: 0;
