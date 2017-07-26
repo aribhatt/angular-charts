@@ -1,0 +1,7 @@
+<div class="bullet-wrapper" [style.height.px]="calc_height" #bulletwrapper>
+    <div class="ranges" *ngFor="let item of calc_ranges; let i = index" [style.width.%]="item" [style.height.px]="calc_height" [style.opacity]="range_opacity[i]"></div>
+
+    <div class="actual" *ngFor="let item of calc_actual; let i = index" [style.width.%]="item" [style.height.px]="actual_height" [style.top.px]="actual_top" [style.opacity]="actual_opacity[i]"></div>
+
+    <div class="target" [style.left.%]="calc_target" [style.height.px]="calc_height"></div>
+</div>
