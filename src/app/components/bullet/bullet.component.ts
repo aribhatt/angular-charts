@@ -40,7 +40,8 @@ export class BulletComponent implements OnInit, OnChanges, AfterViewInit {
         //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
         //Add 'implements OnChanges' to the class.
         if (this.viewInit) {
-            this.processData();
+            let self = this;
+            setTimeout(() => { self.processData() }, 100);
         }
     }
 
@@ -48,7 +49,8 @@ export class BulletComponent implements OnInit, OnChanges, AfterViewInit {
         //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
         //Add 'implements AfterViewInit' to the class.
         this.viewInit = true;
-        this.processData();
+        let self = this;
+        setTimeout(() => { self.processData() }, 100);
     }
 
     ngOnDestroy() {
@@ -64,15 +66,20 @@ export class BulletComponent implements OnInit, OnChanges, AfterViewInit {
         let range_max: number = Number.MIN_VALUE;
         let target_max: number = Number.MIN_VALUE;
         let max: number = Number.MIN_VALUE;
+        let min: number = Math.min(Math.min(...this.actual), Math.min(...this.ranges), Math.min(...this.target));
+        min = min < 0 ? min : 0;
         let self = this;
 
         if (this.actual) {
+            this.actual = this.checkForNegatives(this.actual, min);
             act_max = Math.max(...this.actual);
         }
         if (this.ranges) {
+            this.ranges = this.checkForNegatives(this.ranges, min);
             range_max = Math.max(...this.ranges);
         }
         if (this.target) {
+            this.target = this.checkForNegatives(this.target, min);
             target_max = Math.max(...this.target);
         }
         max = Math.max(act_max, range_max, target_max);
@@ -99,7 +106,13 @@ export class BulletComponent implements OnInit, OnChanges, AfterViewInit {
             this.showRange = true;
         }
 
-        debugger;
+    }
+
+    checkForNegatives(array: number[], min){
+        //let min = Math.min(...array) < 0 ? Math.min(...array) : 0;
+        return array.map(item => {
+            return item - min;
+        });
     }
 
 
